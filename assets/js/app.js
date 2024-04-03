@@ -1,6 +1,7 @@
 const playlist = document.getElementById("playlist");
-
 const lecteur = document.querySelector("#lecteur");
+const cover = document.getElementById("cover");
+const disque = document.getElementById("disque");
 
 const config = {
     urlCover : "uploads/covers/",
@@ -38,8 +39,14 @@ const dbMusic = [
   },
 ];
 
+/*
 dbMusic.forEach((music) => {
   playlist.innerHTML += `<li id="${music.id}"><h2>${music.title}</h2><img src="${config.urlCover}${music.cover}" alt="${music.title}" /><div><small>${music.category}</small></div></li>`;
+});
+*/
+
+dbMusic.forEach((music) => {
+  playlist.innerHTML += `<li id="${music.id}"><h2>${music.title}</h2><div><small>${music.category}</small></div></li>`;
 });
 
 const allLi = document.querySelectorAll("li");
@@ -48,9 +55,14 @@ allLi.forEach((li) => {
     li.addEventListener("click", function(elem){
         const id = parseInt(li.id);
         const searchById = dbMusic.find((element) => element.id === id);
-        console.log(searchById);
-        alert(`Veux-tu écouter le titre : ${searchById.title}`);
+        //console.log(searchById);
+        //alert(`Veux-tu écouter le titre : ${searchById.title}`);
         lecteur.src = `${config.urlSound}${searchById.sound}`;
         lecteur.play();
+        cover.src = `${config.urlCover}${searchById.cover}`;
+        if(disque.classList.contains("pause"))
+        {
+          disque.classList.remove("pause");
+        }
     });
 })
