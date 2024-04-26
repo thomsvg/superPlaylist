@@ -12,6 +12,22 @@
     }
 }
 
+@keyframes turnVinyl {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Réinitialisation de la marge et du rembourrage */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 .cover {
     width: 150px;
     height: 150px;
@@ -38,6 +54,100 @@
     animation-play-state: paused;
 }
 
-li{
-    background-color: aqua;
+#aleatoire {
+    margin-top: 20px; /* Espacement par rapport au lecteur audio */
+    background-color: #00a500b0; /* Couleur de fond */
+    border: none;
+    color: #ffffffe0; /* Couleur du texte */
+    padding: 10px 20px; /* Espacement interne */
+    font-size: 16px;
+    border-radius: 5px; /* Bords arrondis */
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Transition en cas de survol */
+}
+
+#aleatoire:hover {
+    background-color: #00d836b0; /*  Nouvelle couleur de fond au survol  */
+}
+
+/* Style pour le conteneur principal */
+.container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start; /* Alignement en haut */
+    padding: 20px;
+}
+
+/* Style pour le conteneur de la playlist */
+.playlist-container {
+    width: 40%; /* Ajustez la largeur selon vos préférences */
+}
+
+/* Style pour le conteneur du vinyle */
+.vinyle-container {
+    width: 40%; /* Ajustez la largeur selon vos préférences */
+    text-align: center;
+}
+
+/* Style pour le lecteur audio */
+#audio {
+    width: 100%;
+    margin-top: 20px;
+}
+
+/* Style pour la liste de lecture */
+#playlist {
+    list-style: none;
+    padding: 0;
+}
+
+#playlist li {
+    padding: 10px;
+    margin-bottom: 5px;
+    background-color: #2980b9b0; /* Bleu */
+    color: #ffffffe0; /* Texte blanc */
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#playlist li:hover {
+    background-color: #3498dbb0; /* Changement de couleur au survol */
+}
+
+#playlist li h2 {
+    margin: 0;
+    font-size: 18px;
+}
+
+#playlist li div small {
+    font-size: 14px;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #252525;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Roboto', sans-serif;
+}
+
+.lecteur {
+    width: 60%;
+    text-align: center;
+    background-color: #3498db;
+}
+
+/* Style pour le lecteur audio */
+.lecteur-container {
+    margin-top: 20px;
+    text-align: center;
+}
+
+/* Style pour le bouton "Tirage au sort !" */
+.button-container {
+    width: 100%;
+    padding: 0px;
 }

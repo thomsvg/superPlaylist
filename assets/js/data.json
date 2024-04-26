@@ -1,0 +1,51 @@
+[
+    {
+      "id": 1,
+      "cover": "harry_styles-watermelon_sugar.jpg",
+      "sound": "Harry_Styles-Watermelon_Sugar.mp3",
+      "title": "Harry Styles - Watermelon Sugar",
+      "category": "Pop"
+    },
+    {
+      "id": 2,
+      "cover": "bakermat-baiana.jpg",
+      "sound": "Bakermat-Baiana.mp3",
+      "title": "Bakermat - Baianá",
+      "category": "Electro"
+    },
+    {
+      "id": 3,
+      "cover": "maroon_5-lost.jpg",
+      "sound": "Maroon_5-Lost.mp3",
+      "title": "Maroon 5 - Lost",
+      "category": "Pop"
+    },
+    {
+      "id": 4,
+      "cover": "jonas_blue-dont_call_it_love.jpg",
+      "sound": "Jonas_Blue-Dont_Call_It_Love.mp3",
+      "title": "Jonas Blue, EDX ft. Alex Mills - Don't Call It Love",
+      "category": "Electro"
+    },
+    {
+      "id": 5,
+      "cover": "floya-lights_out.jpg",
+      "sound": "Floya-Lights_Out.mp3",
+      "title": "Floya - Lights Out",
+      "category": "Rock"
+    },
+    {
+      "id": 6,
+      "cover": "kungs-all_night_long.jpg",
+      "sound": "Kungs-All_Night_Long.mp3",
+      "title": "Kungs, David Guetta, Izzy Bizu - All Night Long",
+      "category": "Electro"
+    },
+    {
+      "id": 7,
+      "cover": "skip_the_use-nameless_world.jpg",
+      "sound": "Skip_The_Use-Nameless_World.mp3",
+      "title": "Skip The Use - Nameless World",
+      "category": "Rock"
+    }
+]
