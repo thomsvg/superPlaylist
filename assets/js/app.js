@@ -2,102 +2,130 @@ const playlist = document.getElementById("playlist");
 const lecteur = document.querySelector(".lecteur");
 const cover = document.getElementById("cover");
 const disque = document.getElementById("disque");
+const categorySelect = document.getElementById("category-select");
+let dbMusic; // Déclarer dbMusic en dehors de la fonction init()
 
 const config = {
-    urlCover : "uploads/covers/",
-    urlSound : "uploads/musics/",
-}
-
-const getData = async() => {
-  const req = await fetch("./assets/js/data.json")
-  console.log(req)
-  const dbMusic = await req.json()
-  console.log("result", dbMusic)
-
-  dbMusic.forEach((music) => {
-    playlist.innerHTML += `<li id="${music.id}"><h2>${music.title}</h2><div><small>${music.category}</small></div></li>`;
-  });
-
-  const allLi = document.querySelectorAll("li");
-
-  allLi.forEach((li) => {
-    li.addEventListener("click", function(elem){
-        const id = parseInt(li.id);
-        const searchById = dbMusic.find((element) => element.id === id);
-        lecteur.src = `${config.urlSound}${searchById.sound}`;
-        lecteur.play();
-        cover.src = `${config.urlCover}${searchById.cover}`;
-        if(disque.classList.contains("pause"))
-        {
-          disque.classList.remove("pause");
-        }
-    });
-  })
-
-  const aleatoireBtn = document.getElementById("aleatoire");
-
-aleatoireBtn.addEventListener("click", function() {
-    // Générer un index aléatoire dans la plage des indices du tableau dbMusic
-    const randomIndex = Math.floor(Math.random() * dbMusic.length);
-
-    // Sélectionner une musique aléatoire à partir de dbMusic
-    const randomMusic = dbMusic[randomIndex];
-
-    // Mettre à jour le lecteur audio avec la musique aléatoire
-    lecteur.src = `${config.urlSound}${randomMusic.sound}`;
-    lecteur.play();
-
-    // Mettre à jour la couverture avec la couverture de la musique aléatoire
-    cover.src = `${config.urlCover}${randomMusic.cover}`;
-
-    // Retirer la classe "pause" pour lancer l'animation du disque
-    disque.classList.remove("pause");
-});
+    urlCover: "uploads/covers/",
+    urlSound: "uploads/musics/",
 };
 
-getData();
+// Fonction pour mettre en surbrillance la piste sélectionnée
+function highlightTrack(li) {
+    // Ajoute la classe "current-track" au titre en cours d'écoute
+    li.classList.add("current-track");
 
-lecteur.addEventListener("pause", function () {
-  disque.classList.add("pause")
-});
-
-lecteur.addEventListener("play", function () {
-  disque.classList.remove("pause")
-});
-
-// Récupérez l'élément de sélection et écoutez les événements de changement
-const sortSelect = document.getElementById("sort-select");
-sortSelect.addEventListener("change", function() {
-  // Obtenez la valeur sélectionnée pour déterminer comment trier
-  const sortBy = sortSelect.value;
-  // Appelez la fonction de tri avec la méthode de tri sélectionnée
-  sortPlaylist(sortBy);
-});
-
-/*
-// Fonction pour trier la liste de lecture en fonction de la méthode de tri sélectionnée
-function sortPlaylist(sortBy) {
-  const playlistItems = Array.from(document.querySelectorAll("#playlist li"));
-  const sortedItems = playlistItems.sort((a, b) => {
-    const aValue = a.querySelector(`.${sortBy}`).innerText;
-    const bValue = b.querySelector(`.${sortBy}`).innerText;
-    return aValue.localeCompare(bValue);
-  });
-  // Effacez la liste de lecture actuelle
-  playlist.innerHTML = "";
-  // Ajoutez les éléments triés à la liste de lecture
-  sortedItems.forEach(item => playlist.appendChild(item));
+    // Retire la classe "current-track" des autres titres
+    const allLi = document.querySelectorAll("li");
+    allLi.forEach((otherLi) => {
+        if (otherLi !== li) {
+            otherLi.classList.remove("current-track");
+        }
+    });
 }
-*/
 
-//console.log("start")
-//setTimeout(() => {
-//  console.log("en cours")
-//}, 5000);
-//console.log("end")
+// Fonction pour charger les données et initialiser les fonctionnalités
+async function init() {
+    // Récupérer les données à partir du fichier JSON
+    const req = await fetch("./assets/js/data.json");
+    dbMusic = await req.json(); // Assigner les données à dbMusic
 
-/*
-setInterval(() => {
-  console.log("coucou")
-}, 1000);
-*/
+    // Créer la liste de lecture
+    dbMusic.forEach((music) => {
+        const li = document.createElement("li");
+        li.innerHTML = `<h2>${music.title}</h2><div><small>${music.category}</small></div>`;
+        li.dataset.category = music.category; // Ajouter un attribut dataset pour la catégorie
+        playlist.appendChild(li);
+
+        // Ajouter un événement de clic à chaque élément de la liste de lecture
+        li.addEventListener("click", function () {
+            // Récupérer les informations sur la musique correspondant à l'ID de cet élément li
+            const selectedMusic = dbMusic.find((m) => m.id === music.id);
+
+            // Mettre à jour le lecteur audio avec les informations de la musique sélectionnée
+            lecteur.src = config.urlSound + selectedMusic.sound;
+            cover.src = config.urlCover + selectedMusic.cover;
+
+            // Mettre en surbrillance la piste sélectionnée
+            highlightTrack(li);
+
+            // Démarrer la lecture automatiquement
+            lecteur.play();
+        });
+    });
+
+    // Ajouter une option pour afficher toutes les catégories dans la liste déroulante
+    const allCategoriesOption = document.createElement("option");
+    allCategoriesOption.value = "Toutes";
+    allCategoriesOption.textContent = "Toutes les catégories";
+    categorySelect.appendChild(allCategoriesOption);
+
+    // Obtenir toutes les catégories uniques à partir des données
+    const categories = [...new Set(dbMusic.map((music) => music.category))];
+    categories.forEach((category) => {
+        const option = document.createElement("option");
+        option.value = category;
+        option.textContent = category;
+        categorySelect.appendChild(option);
+    });
+}
+
+// Appeler la fonction init pour initialiser les fonctionnalités
+init();
+
+// Sélectionner le bouton "aléatoire"
+const boutonAleatoire = document.getElementById("aleatoire");
+
+// Modifier la logique pour choisir une musique aléatoire et la lire
+boutonAleatoire.addEventListener("click", function () {
+    // Logique pour choisir une musique aléatoire et la lire
+    const randomIndex = Math.floor(Math.random() * dbMusic.length);
+    const randomMusic = dbMusic[randomIndex];
+    lecteur.src = config.urlSound + randomMusic.sound;
+    cover.src = config.urlCover + randomMusic.cover;
+
+    // Trouver et mettre en surbrillance la piste aléatoire dans la liste de lecture
+    const allLi = playlist.querySelectorAll("li");
+    allLi.forEach((li) => {
+        if (li.textContent.includes(randomMusic.title)) {
+            highlightTrack(li);
+        }
+    });
+
+    // Ajouter un écouteur d'événements pour l'événement canplay
+    lecteur.addEventListener("canplay", function () {
+        // Démarrer la lecture automatiquement une fois que le lecteur est prêt
+        lecteur.play();
+    });
+});
+
+// Sélectionner le bouton "Lire"
+const lireBtn = document.querySelector(".playlist-container button");
+
+// Ajouter un écouteur d'événements pour le clic sur le bouton "Tirage au sort"
+lireBtn.addEventListener("click", function () {
+    // Mettre ici la logique pour démarrer la lecture de la musique
+    lecteur.addEventListener("pause", function () {
+        disque.classList.add("pause");
+    });
+
+    lecteur.addEventListener("play", function () {
+        disque.classList.remove("pause");
+    });
+});
+
+// Ajouter un écouteur d'événements pour détecter les changements dans la liste déroulante
+categorySelect.addEventListener("change", function () {
+    const selectedCategory = categorySelect.value; // Récupérer la catégorie sélectionnée
+
+    // Parcourir tous les éléments de la liste de lecture
+    const allLi = playlist.querySelectorAll("li");
+    allLi.forEach((li) => {
+        // Afficher ou masquer les éléments en fonction de la catégorie sélectionnée
+        if (selectedCategory === "Toutes" || li.dataset.category === selectedCategory) {
+            li.style.display = "block"; // Afficher l'élément
+        } else {
+            li.style.display = "none"; // Masquer l'élément
+        }
+    });
+});

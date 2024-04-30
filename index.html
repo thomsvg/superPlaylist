@@ -3,24 +3,19 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Super Playlist</title>
+    <title>Onzer - Accueil</title>
     <link rel="stylesheet" href="assets/style.css">
-    <script src="assets/js/app.js" defer></script>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
   </head>
   <body>
-    <!-- Ajoutez des boutons ou des menus déroulants pour les options de tri -->
-    <!--
-    <div class="sorting-options">
-      <label for="sort-select">Trier par :</label>
-      <select id="sort-select">
-        <option value="title">Titre</option>
-        <option value="category">Catégorie</option>
-      </select>
-    </div>
-    -->
 
     <div class="container">
+      <div class="sorting-options">
+        <select id="category-select">
+          <!-- Les options seront ajoutées dynamiquement par JavaScript -->
+        </select>
+      </div>
+      
       <div class="playlist-container">
         <ul id="playlist">
           <!-- Loop js dynamique -->
@@ -41,5 +36,13 @@
     <div class="lecteur-container">
       <audio class="lecteur" controls src=""></audio>
     </div>
+    <script src="assets/js/app.js" defer></script>
   </body>
 </html>
+
+<!--
+  Pistes d'amélioration :
+    - Possibilité de choisir les morceaux à écouter par artiste, genre...
+    - Possibilité de faire défiler les morceaux
+    - Nettoyage du code
+-->

@@ -47,5 +47,19 @@
       "sound": "Skip_The_Use-Nameless_World.mp3",
       "title": "Skip The Use - Nameless World",
       "category": "Rock"
+    },
+    {
+      "id": 8,
+      "cover": "capital_cities-safe_and_sound.jpg",
+      "sound": "Capital_Cities-Safe_And_Sound.mp3",
+      "title": "Capital Cities - Safe And Sound",
+      "category": "Pop"
+    },
+    {
+      "id": 9,
+      "cover": "madcon-dont_worry.jpg",
+      "sound": "Madcon-Dont_Worry.mp3",
+      "title": "Madcon ft. Ray Dalton - Don't Worry",
+      "category": "Pop"
     }
 ]
