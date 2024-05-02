@@ -27,7 +27,7 @@ function highlightTrack(li) {
 // Fonction pour charger les données et initialiser les fonctionnalités
 async function init() {
     // Récupérer les données à partir du fichier JSON
-    const req = await fetch("./assets/js/data.json");
+    const req = await fetch("https://api-44cg.onrender.com/api/v1/musics");
     dbMusic = await req.json(); // Assigner les données à dbMusic
 
     // Créer la liste de lecture
