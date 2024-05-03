@@ -26,22 +26,6 @@ function highlightTrack(li) {
 
 // Fonction pour charger les données et initialiser les fonctionnalités
 async function init() {
-    try {
-        const req = await fetch("https://api-44cg.onrender.com/api/v1/musics");
-        if (!req.ok) {
-            throw new Error("Erreur lors de la récupération des données.");
-        }
-        const responseData = await req.json();
-        if (!Array.isArray(responseData.result)) {
-            throw new Error("Les données renvoyées ne sont pas au format attendu.");
-        }
-        dbMusic = responseData.result;
-        
-        // Le reste de ton code pour créer la liste de lecture et initialiser les fonctionnalités
-    } catch (error) {
-        console.error("Une erreur est survenue lors de l'initialisation :", error);
-    }
-    
     // Récupérer les données à partir du fichier JSON
     const req = await fetch("https://api-44cg.onrender.com/api/v1/musics");
     dbMusic = await req.json(); // Assigner les données à dbMusic
@@ -56,7 +40,7 @@ async function init() {
         // Ajouter un événement de clic à chaque élément de la liste de lecture
         li.addEventListener("click", function () {
             // Récupérer les informations sur la musique correspondant à l'ID de cet élément li
-            const selectedMusic = dbMusic.find((m) => m.id === music.id);
+            const selectedMusic = dbMusic.find;
 
             // Mettre à jour le lecteur audio avec les informations de la musique sélectionnée
             lecteur.src = config.urlSound + selectedMusic.sound;
