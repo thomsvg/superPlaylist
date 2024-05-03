@@ -3,7 +3,7 @@ const lecteur = document.querySelector(".lecteur");
 const cover = document.getElementById("cover");
 const disque = document.getElementById("disque");
 const categorySelect = document.getElementById("category-select");
-let dbMusic; // Déclarer dbMusic en dehors de la fonction init()
+let dbMusic = []; // Déclarer dbMusic en dehors de la fonction init()
 
 const config = {
     urlCover: "uploads/covers/",
