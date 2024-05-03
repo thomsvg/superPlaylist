@@ -31,7 +31,7 @@ async function init() {
     dbMusic = await req.json(); // Assigner les données à dbMusic
 
     // Créer la liste de lecture
-    dbMusic.forEach((music) => {
+    dbMusic.result.forEach((music) => {
         const li = document.createElement("li");
         li.innerHTML = `<h2>${music.title}</h2><div><small>${music.category}</small></div>`;
         li.dataset.category = music.category; // Ajouter un attribut dataset pour la catégorie
